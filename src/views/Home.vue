@@ -1,5 +1,5 @@
 <template>
-  <BikeDocks />
+  <h1>nope</h1>
 </template>
 
 <script>

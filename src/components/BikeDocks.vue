@@ -57,6 +57,9 @@ export default {
       return this.$route.params.stid.split('+')
     }
   },
+  watch: {
+    station_ids: () => this.fetchStationStatus()
+  },
   methods: {
     fetchStationStatus () {
       fetch('https://gbfs.citibikenyc.com/gbfs/en/station_status.json')

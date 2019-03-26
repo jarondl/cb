@@ -6,10 +6,9 @@
       </v-toolbar-title>
       <v-spacer/>
       <v-toolbar-items>
-        <EditDocks v-bind:station_list="station_list"/>
+        <EditDocks v-bind:station_list="station_list" v-bind:selected_docks="selected_docks"/>
       </v-toolbar-items>
     </v-toolbar>
-
     <v-content>
       <BikeDocks v-bind:station_info="station_info"/>
     </v-content>
@@ -24,11 +23,23 @@ export default {
   name: 'DockStatus',
   data: () => ({
     station_info: new Map(),
-    station_list: []
+    station_list: [],
+    selected_docks: []
   }),
   components: {
     BikeDocks,
     EditDocks
+  },
+  watch: {
+    "this.$route.params.stid": () => {
+      let stids = this.$route.params.stid.split('+')
+      let s = []
+      for (let d of stids) {
+        let sta = this.station_info.get(d)
+        s.push({id: d, name: sta.name })
+      }
+      this.selected_docks = s
+    }
   },
   methods: {
     fetchStationInfo () {
