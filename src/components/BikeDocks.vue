@@ -8,11 +8,9 @@
       <v-flex mb-4>
         <div v-if="last_updated && now">
         <span>Updated {{ now - last_updated }} seconds ago</span>
-  <v-flex xs12 sm3>
             <v-btn flat v-on:click="fetchStationStatus" :disabled="(now - last_updated) < ttl" icon color="green">
               <v-icon>refresh</v-icon>
             </v-btn>
-          </v-flex>
         </div>
       </v-flex>
 
@@ -54,11 +52,15 @@ export default {
   },
   computed: {
     station_ids () {
-      return this.$route.params.stid.split('+')
+      if ('stid' in this.$route.params) {
+        return this.$route.params.stid.split('+')
+      } else {
+        return []
+      }
     }
   },
   watch: {
-    station_ids: () => this.fetchStationStatus()
+    station_ids () {this.fetchStationStatus()}
   },
   methods: {
     fetchStationStatus () {

@@ -3,11 +3,10 @@
 </template>
 
 <script>
-import BikeDocks from '../components/BikeDocks'
 
 export default {
-  components: {
-    BikeDocks
+  created() {
+    this.$router.push({name: 'docks', params: {stid:[]}})
   }
 }
 </script>

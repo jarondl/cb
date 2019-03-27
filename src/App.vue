@@ -6,7 +6,7 @@
       </v-toolbar-title>
       <v-spacer/>
       <v-toolbar-items>
-        <EditDocks v-bind:station_list="station_list" v-bind:selected_docks="selected_docks"/>
+        <EditDocks v-bind:selected_docks="stids" v-bind:station_info="station_info" v-bind:station_list="station_list"/>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -24,21 +24,18 @@ export default {
   data: () => ({
     station_info: new Map(),
     station_list: [],
-    selected_docks: []
   }),
   components: {
     BikeDocks,
     EditDocks
   },
-  watch: {
-    "this.$route.params.stid": () => {
-      let stids = this.$route.params.stid.split('+')
-      let s = []
-      for (let d of stids) {
-        let sta = this.station_info.get(d)
-        s.push({id: d, name: sta.name })
+  computed: {
+    stids () {
+      const stid = this.$route.params.stid
+      if (stid) {
+        return stid.split('+')
       }
-      this.selected_docks = s
+      return []
     }
   },
   methods: {
@@ -49,7 +46,8 @@ export default {
           let st_list = []
           for (var sta of resp.data.stations) {
             this.station_info.set(sta.station_id, {name: sta.name})
-            st_list.push({id: sta.station_id, name: sta.name})
+            // I Assume the order is important for some reason.
+            st_list.push(sta.station_id)
           }
           this.station_list = st_list
         })

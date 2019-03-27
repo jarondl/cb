@@ -6,7 +6,7 @@
     <v-card>
       <v-card-title>Select Docks</v-card-title>
       <v-card-text>
-      <multiselect v-model="selected" :options="station_list" :multiple="true" label="name" track-by="id"/>
+      <multiselect v-model="selected" :custom-label="info" :options="station_list" :multiple="true" :allow-empty="false"/>
       </v-card-text>
     <v-divider/>
     <v-card-actions>
@@ -23,25 +23,29 @@ import Multiselect from 'vue-multiselect'
 export default {
   data: () => ({
     dialog: false,
-    selected: [],
+    selected: []
   }),
   props: [
     "station_list",
+    "station_info",
     "selected_docks"
   ],
   watch: {
-    selected_docks: () => {this.selected = this.selected_docks}
+    selected_docks: function(val) { this.selected = val }
   },
   components: {
     Multiselect
   },
   methods: {
-    done() {
-      let d = []
-      for (let dock of this.selected) {
-        d.push(dock.id)
+    info(stid) {
+      const st = this.station_info.get(stid)
+      if (st) {
+        return st.name
       }
-      this.$router.push({ name: 'docks', params: {'stid': d.join('+')}})
+      return ""
+    },
+    done() {
+      this.$router.push({ name: 'docks', params: {'stid': this.selected.join('+')}})
       this.dialog = false
     }
   }
