@@ -1,35 +1,21 @@
 <template>
   <v-container>
-    <v-layout
-      text-xs-center
-      wrap
-    >
 
-      <v-flex mb-4>
         <div v-if="last_updated && now">
         <span>Updated {{ now - last_updated }} seconds ago</span>
             <v-btn flat v-on:click="fetchStationStatus" :disabled="(now - last_updated) < ttl" icon color="green">
               <v-icon>refresh</v-icon>
             </v-btn>
         </div>
-      </v-flex>
 
-      <v-flex
-        mb-5
-        xs12
-      >
 
-        <v-layout justify-center>
         <v-list two-line v-if="loaded">
           <template v-for="stid in station_ids">
             <dock v-bind:stid="stid" v-bind:key="stid" v-bind:status="station_status.get(stid)" v-bind:info="station_info.get(stid)"/>
           </template>
 
         </v-list>
-        </v-layout>
-      </v-flex>
 
-    </v-layout>
   </v-container>
 </template>
 
