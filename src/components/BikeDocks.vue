@@ -10,8 +10,12 @@
 
 
         <v-list two-line v-if="loaded">
-          <template v-for="stid in station_ids">
+          <template v-for="(stid, index) in station_ids">
             <dock v-bind:stid="stid" v-bind:key="stid" v-bind:status="station_status.get(stid)" v-bind:info="station_info.get(stid)"/>
+         <v-divider
+                v-if="index + 1 < station_ids.length"
+                :key="index"
+              ></v-divider>
           </template>
 
         </v-list>

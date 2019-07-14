@@ -3,6 +3,7 @@
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         bike docks
+      <v-icon>directions_bike</v-icon>
       </v-toolbar-title>
       <v-spacer/>
       <v-toolbar-items>
