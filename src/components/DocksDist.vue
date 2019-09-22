@@ -17,7 +17,6 @@
 
 import * as MinHeapFn from '@datastructures-js/min-heap'
 import BikeDocks from './BikeDocks'
-import EditDocks from './EditDocks'
 
 export default {
   name: 'DockStatus',
@@ -32,8 +31,7 @@ export default {
     }
   },
   components: {
-    BikeDocks,
-    EditDocks
+    BikeDocks
   },
   methods: {
     fetchStationInfo () {

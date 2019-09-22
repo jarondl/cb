@@ -6,7 +6,7 @@
 
 export default {
   created () {
-    this.$router.push({ name: 'docks', params: { stid: "482" } })
+    this.$router.push({ name: 'docks', params: { stid: '482' } })
   }
 }
 </script>
