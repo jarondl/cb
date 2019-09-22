@@ -8,7 +8,6 @@
             </v-btn>
         </div>
 
-
         <v-list two-line v-if="loaded">
           <template v-for="(stid, index) in station_ids">
             <dock v-bind:stid="stid" v-bind:key="stid" v-bind:status="station_status.get(stid)" v-bind:info="station_info.get(stid)"/>
@@ -35,22 +34,14 @@ export default {
     ttl: null
   }),
   props: {
-    station_info: Map
+    station_info: Map,
+    station_ids: Array
   },
   components: {
     Dock
   },
-  computed: {
-    station_ids () {
-      if ('stid' in this.$route.params) {
-        return this.$route.params.stid.split('+')
-      } else {
-        return []
-      }
-    }
-  },
   watch: {
-    station_ids () {this.fetchStationStatus()}
+    station_ids () { this.fetchStationStatus() }
   },
   methods: {
     fetchStationStatus () {
